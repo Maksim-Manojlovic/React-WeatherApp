@@ -1,8 +1,27 @@
 import { Button } from "@/components/ui/button";
+import { useGeolocation } from "@/hooks/use-geolocation";
 import { RefreshCw } from "lucide-react";
 import React from "react";
 
 const WeatherDashboard = () => {
+  const {
+    coordinates,
+    error: locationError,
+    getLocation: locationLoading,
+    isLoading,
+  } = useGeolocation();
+
+  console.log(coordinates);
+
+  const handleRefresh = () => {
+    getLocation();
+    if (coordinates) {
+      //reload weather data
+    }
+  };
+
+  if (locationLoading) {
+  }
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
