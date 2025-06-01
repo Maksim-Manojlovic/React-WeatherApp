@@ -58,17 +58,22 @@ const HourlyTemperature = ({ data }: HourlyTemperature) => {
                             <span className="text-[0.70rem] uppercase text-muted-foreground">
                               Temperature
                             </span>
-                            <span>{payload[0].value}°</span>
+                            <span className="font-bold">
+                              {payload[0].value}°
+                            </span>
                           </div>
                         </div>
 
                         <div className="flex flex-col">
-                          <span>Feels Like</span>
-                          <span>{payload[1].value}°</span>
+                          <span className="text-[0.70rem] uppercase text-muted-foreground">
+                            Feels Like
+                          </span>
+                          <span className="font-bold">{payload[1].value}°</span>
                         </div>
                       </div>
                     );
                   }
+                  return null;
                 }}
               />
               <Line
