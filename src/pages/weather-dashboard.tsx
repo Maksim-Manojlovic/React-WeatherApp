@@ -4,6 +4,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import HourlyTemperature from "@/components/ui/hourly-temperature";
 import WeatherDetails from "@/components/ui/weather-details";
+import WeatherForecast from "@/components/ui/weather-forecast";
 import { useGeolocation } from "@/hooks/use-geolocation";
 import {
   useForecastQuery,
@@ -90,7 +91,7 @@ const WeatherDashboard = () => {
     );
   }
 
-  if (!weatherQuery.data || forecastQuery.data) {
+  if (!weatherQuery.data || !forecastQuery.data) {
     return <WeatherSkeleton />;
   }
 
@@ -124,6 +125,8 @@ const WeatherDashboard = () => {
         <div>
           {/* details */}
           <WeatherDetails data={weatherQuery.data} />
+
+          <WeatherForecast data={forecastQuery.data} />
         </div>
       </div>
     </div>

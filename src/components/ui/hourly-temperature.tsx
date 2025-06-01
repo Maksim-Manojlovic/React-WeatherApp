@@ -11,11 +11,11 @@ import {
 
 import { format } from "date-fns";
 
-interface HourlyTemperature {
+interface HourlyTemperatureProps {
   data: ForecastData;
 }
 
-const HourlyTemperature = ({ data }: HourlyTemperature) => {
+const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
   const chartData = data.list.slice(0, 8).map((item) => ({
     time: format(new Date(item.dt * 1000), "ha"),
     temp: Math.round(item.main.temp),
