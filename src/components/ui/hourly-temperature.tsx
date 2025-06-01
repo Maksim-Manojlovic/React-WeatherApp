@@ -39,7 +39,6 @@ const HourlyTemperature = ({ data }: HourlyTemperatureProps) => {
                 axisLine={false}
               />
               <YAxis
-                dataKey="time"
                 stroke="#888888"
                 fontSize={12}
                 tickLine={false}
