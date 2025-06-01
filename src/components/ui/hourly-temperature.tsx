@@ -1,8 +1,16 @@
 import type { ForecastData } from "@/api/types";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
-import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import {
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import { format } from "date-fns";
+import { Divide } from "lucide-react";
 
 interface HourlyTemperature {
   data: ForecastData;
@@ -40,6 +48,29 @@ const HourlyTemperature = ({ data }: HourlyTemperature) => {
                 tickFormatter={(value) => `${value}°`}
               />
               {/* tooltip */}
+              <Tooltip
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="rounded-lg border bg-background p-2 shadow-sm">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="flex flex-col">
+                            <span className="text-[0.70rem] uppercase text-muted-foreground">
+                              Temperature
+                            </span>
+                            <span>{payload[0].value}°</span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col">
+                          <span>Feels Like</span>
+                          <span>{payload[1].value}°</span>
+                        </div>
+                      </div>
+                    );
+                  }
+                }}
+              />
               <Line
                 type="monotone"
                 dataKey="temp"
