@@ -10,7 +10,6 @@ import {
 } from "recharts";
 
 import { format } from "date-fns";
-import { Divide } from "lucide-react";
 
 interface HourlyTemperature {
   data: ForecastData;
