@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "cmdk";
+} from "./ui/command";
 import { ListCollapse, Loader2, Search } from "lucide-react";
 import { useLocationSearch } from "@/hooks/use-weather";
 
