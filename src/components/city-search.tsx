@@ -11,14 +11,21 @@ import {
 } from "./ui/command";
 import { ListCollapse, Loader2, Search } from "lucide-react";
 import { useLocationSearch } from "@/hooks/use-weather";
+import { useNavigate } from "react-router-dom";
 
 const CitySearch = () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   const { data: locations, isLoading } = useLocationSearch(query);
 
-  const handleSelect = () => {};
+  const handleSelect = (cityData: string) => {
+    const [lat, lot, name, country] = cityData.split("|");
+
+    setOpen(false);
+    navigate(`/city/${name}??lat=${lat}&lon=${lot}`);
+  };
 
   return (
     <div>
