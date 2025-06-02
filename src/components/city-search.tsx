@@ -64,6 +64,14 @@ const CitySearch = () => {
                   >
                     <Search className="mr-2 h-4 w-4" />
                     <span>{location.name}</span>
+                    {location.state && (
+                      <span className="text-sm text-muted-foreground">
+                        , {location.state}
+                      </span>
+                    )}
+                    <span className="text-sm text-muted-foreground">
+                      , {location.country}
+                    </span>
                   </CommandItem>
                 );
               })}
