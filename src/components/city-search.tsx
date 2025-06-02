@@ -1,7 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "cmdk";
+import { Search } from "lucide-react";
 
 const CitySearch = () => {
-  return <div></div>;
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  return (
+    <div>
+      <Button
+        variant="outline"
+        className="relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
+        onClick={() => setOpen(true)}
+      >
+        <Search className="mr-2 h-4 w-4" />
+        Search cities...
+      </Button>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Suggestions">
+            <CommandItem>Calendar</CommandItem>
+            <CommandItem>Search Emoji</CommandItem>
+            <CommandItem>Calculator</CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
+    </div>
+  );
 };
 
 export default CitySearch;
