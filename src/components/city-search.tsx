@@ -9,7 +9,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "cmdk";
-import { Search } from "lucide-react";
+import { ListCollapse, Loader2, Search } from "lucide-react";
 import { useLocationSearch } from "@/hooks/use-weather";
 
 const CitySearch = () => {
@@ -17,6 +17,8 @@ const CitySearch = () => {
   const [query, setQuery] = useState("");
 
   const { data: locations, isLoading } = useLocationSearch(query);
+
+  const handleSelect = () => {};
 
   return (
     <div>
@@ -46,9 +48,28 @@ const CitySearch = () => {
             <CommandItem>Calendar</CommandItem>
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="Suggestions">
-            <CommandItem>Calendar</CommandItem>
-          </CommandGroup>
+          {locations && locations.length > 0 && (
+            <CommandGroup heading="Suggestions">
+              {isLoading && (
+                <div className="flex items-center justify-center p-4">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                </div>
+              )}
+              {locations.map((location) => {
+                return (
+                  <CommandItem
+                    key={`${location.lat}-${location.lot}`}
+                    value={`${location.lat}|${location.lot}|${location.name}|${location.country}`}
+                    onSelect={handleSelect}
+                  >
+                    <Search className="mr-2 h-4 w-4" />
+                    <span>{location.name}</span>
+                  </CommandItem>
+                );
+              })}
+              <CommandItem>Calendar</CommandItem>
+            </CommandGroup>
+          )}
         </CommandList>
       </CommandDialog>
     </div>
