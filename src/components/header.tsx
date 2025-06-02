@@ -19,7 +19,7 @@ const Header = () => {
           />
         </Link>
 
-        <div>
+        <div className="flex gap-4">
           <CitySearch />
           <div
             onClick={() => setTheme(isDark ? "light" : "dark")}
