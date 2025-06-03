@@ -44,8 +44,8 @@ export function useSearchHistory() {
       setHistory(newHistory);
       return newHistory;
     },
-    onSuccess: () => {
-      queryClient.setQueryData(["search-history"], newHistory);
+    onSuccess: (data) => {
+      queryClient.setQueryData(["search-history"], data);
     },
   });
 
