@@ -35,7 +35,7 @@ const CitySearch = () => {
     });
 
     setOpen(false);
-    navigate(`/city/${name}??lat=${lat}&lon=${lot}`);
+    navigate(`/city/${name}?lat=${lat}&lon=${lot}`);
   };
 
   return (
