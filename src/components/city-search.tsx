@@ -66,7 +66,7 @@ const CitySearch = () => {
             <>
               <CommandSeparator />
               <CommandGroup>
-                <div>
+                <div className="flex items-center justify-between px-2 my-2">
                   <p>Recent Searches</p>
                   <Button
                     variant="ghost"
