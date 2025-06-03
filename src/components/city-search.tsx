@@ -9,9 +9,11 @@ import {
   CommandList,
   CommandSeparator,
 } from "./ui/command";
-import { ListCollapse, Loader2, Search } from "lucide-react";
+import { Clock, Loader2, Search, XCircle } from "lucide-react";
 import { useLocationSearch } from "@/hooks/use-weather";
 import { useNavigate } from "react-router-dom";
+import { useSearchHistory } from "@/hooks/use-search-history";
+import { format } from "date-fns";
 
 const CitySearch = () => {
   const [open, setOpen] = useState(false);
@@ -19,9 +21,18 @@ const CitySearch = () => {
   const navigate = useNavigate();
 
   const { data: locations, isLoading } = useLocationSearch(query);
+  const { history, clearHistory, addToHistory } = useSearchHistory();
 
   const handleSelect = (cityData: string) => {
     const [lat, lot, name, country] = cityData.split("|");
+
+    addToHistory.mutate({
+      query,
+      name,
+      lat: parseFloat(lat),
+      lot: parseFloat(lot),
+      country,
+    });
 
     setOpen(false);
     navigate(`/city/${name}??lat=${lat}&lon=${lot}`);
@@ -50,10 +61,53 @@ const CitySearch = () => {
           <CommandGroup heading="Favorites">
             <CommandItem>Calendar</CommandItem>
           </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Recent Searches">
-            <CommandItem>Calendar</CommandItem>
-          </CommandGroup>
+
+          {history.length > 0 && (
+            <>
+              <CommandSeparator />
+              <CommandGroup>
+                <div>
+                  <p>Recent Searches</p>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => clearHistory.mutate()}
+                  >
+                    <XCircle className="h-4 w-4" />
+                    Clear
+                  </Button>
+                </div>
+                {history.map((location) => {
+                  return (
+                    <CommandItem
+                      key={`${location.lat}-${location.lot}`}
+                      value={`${location.lat}|${location.lot}|${location.name}|${location.country}`}
+                      onSelect={handleSelect}
+                    >
+                      <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
+                      <span>{location.name}</span>
+                      {location.state && (
+                        <span className="text-sm text-muted-foreground">
+                          , {location.state}
+                        </span>
+                      )}
+                      <span className="text-sm text-muted-foreground">
+                        , {location.country}
+                      </span>
+                      <span className="ml-auto text-xs text-muted-foreground">
+                        {location.searchedAt
+                          ? format(
+                              new Date(location.searchedAt),
+                              "MMM d, h:mm a"
+                            )
+                          : "Unknown"}
+                      </span>
+                    </CommandItem>
+                  );
+                })}
+              </CommandGroup>
+            </>
+          )}
           <CommandSeparator />
           {locations && locations.length > 0 && (
             <CommandGroup heading="Suggestions">
