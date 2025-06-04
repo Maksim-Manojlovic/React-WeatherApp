@@ -1,4 +1,9 @@
+import CurrentWeather from "@/components/current-weather";
+import WeatherSkeleton from "@/components/loading-skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import HourlyTemperature from "@/components/ui/hourly-temperature";
+import WeatherDetails from "@/components/ui/weather-details";
+import WeatherForecast from "@/components/ui/weather-forecast";
 import { useForecastQuery, useWeatherQuery } from "@/hooks/use-weather";
 import { AlertTriangle } from "lucide-react";
 import { useParams, useSearchParams } from "react-router-dom";
@@ -30,7 +35,29 @@ const CityPage = () => {
     return <WeatherSkeleton />;
   }
 
-  return <div>CityPage</div>;
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold tracking-tight">
+          {params.cityName}, {weatherQuery.data.sys.country}
+        </h1>
+      </div>
+
+      <div className="grid gap-6">
+        <div className="flex flex-col  gap-4">
+          {/* current weather */}
+          <CurrentWeather data={weatherQuery.data} />
+          <HourlyTemperature data={forecastQuery.data} />
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 items-start">
+          {/* details */}
+          <WeatherDetails data={weatherQuery.data} />
+
+          <WeatherForecast data={forecastQuery.data} />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default CityPage;
