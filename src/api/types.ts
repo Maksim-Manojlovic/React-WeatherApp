@@ -54,7 +54,7 @@ export interface GeoCodingResponse {
   name: string;
   local_names?: Record<string, string>;
   lat: number;
-  lot: number;
+  lon: number;
   country: string;
   state?: string;
 }

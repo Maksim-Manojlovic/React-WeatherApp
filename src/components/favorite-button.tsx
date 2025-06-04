@@ -3,7 +3,6 @@ import { useFavorite } from "@/hooks/use-favorite";
 import { Button } from "./ui/button";
 import { Star } from "lucide-react";
 import { toast } from "sonner";
-import { add } from "date-fns";
 
 interface FavoriteButtonProps {
   data: WeatherData;

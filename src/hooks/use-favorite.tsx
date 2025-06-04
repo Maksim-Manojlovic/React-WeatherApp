@@ -4,7 +4,7 @@ import { useLocalStorage } from "./use-local-storage";
 interface FavoriteCity {
   id: string;
   lat: number;
-  lot: number;
+  lon: number;
   name: string;
   country: string;
   state?: string;
@@ -30,7 +30,7 @@ export function useFavorite() {
     mutationFn: async (city: Omit<FavoriteCity, "id" | "addedAt">) => {
       const newFavorite: FavoriteCity = {
         ...city,
-        id: `${city.lat}-${city.lot}`,
+        id: `${city.lat}-${city.lon}`,
         addedAt: Date.now(),
       };
 
@@ -66,7 +66,7 @@ export function useFavorite() {
     favorites: favoriteQuery.data,
     addFavorite,
     removeFavorite,
-    isFavorite: (lat: number, lot: number) =>
-      favorites.some((city) => city.lat === lat && city.lot === lot),
+    isFavorite: (lat: number, lon: number) =>
+      favorites.some((city) => city.lat === lat && city.lon === lon),
   };
 }
