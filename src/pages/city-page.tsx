@@ -41,6 +41,7 @@ const CityPage = () => {
         <h1 className="text-3xl font-bold tracking-tight">
           {params.cityName}, {weatherQuery.data.sys.country}
         </h1>
+        <div>{/* favotire button */}</div>
       </div>
 
       <div className="grid gap-6">
