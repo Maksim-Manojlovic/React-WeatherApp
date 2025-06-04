@@ -3,6 +3,7 @@ import { useFavorite } from "@/hooks/use-favorite";
 import { Button } from "./ui/button";
 import { Star } from "lucide-react";
 import { toast } from "sonner";
+import { add } from "date-fns";
 
 interface FavoriteButtonProps {
   data: WeatherData;
@@ -15,6 +16,13 @@ const FavoriteButton = ({ data }: FavoriteButtonProps) => {
     if (isCurrentlyFavorite) {
       removeFavorite.mutate(`${data.coord.lat}-${data.coord.lon}`);
       toast.error(`Removed ${data.name} from Favorites`);
+    } else {
+      addFavorite.mutate({
+        name: data.name,
+        lat: data.coord.lat,
+        lon: data.coord.lon,
+        country: data.sys.country,
+      });
     }
   };
 
