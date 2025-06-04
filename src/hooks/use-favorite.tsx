@@ -11,7 +11,7 @@ interface FavoriteCity {
   addedAt: number;
 }
 
-export function useFavorites() {
+export function useFavorite() {
   const [favorites, setFavorites] = useLocalStorage<FavoriteCity[]>(
     "favorites",
     []
@@ -30,7 +30,7 @@ export function useFavorites() {
     mutationFn: async (city: Omit<FavoriteCity, "id" | "addedAt">) => {
       const newFavorite: FavoriteCity = {
         ...city,
-        id: `${city.lat}-${city.lot}-${Date.now()}`,
+        id: `${city.lat}-${city.lot}`,
         addedAt: Date.now(),
       };
 
