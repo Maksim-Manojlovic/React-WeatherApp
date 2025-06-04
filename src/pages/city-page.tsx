@@ -25,6 +25,12 @@ const CityPage = () => {
       </Alert>
     );
   }
+
+  if (!weatherQuery.data || !forecastQuery.data || !params.cityName) {
+    return <WeatherSkeleton />;
+  }
+
+  return <div>CityPage</div>;
 };
 
 export default CityPage;
