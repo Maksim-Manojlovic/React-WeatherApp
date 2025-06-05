@@ -4,6 +4,7 @@ import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./button";
 import { X } from "lucide-react";
+import { toast } from "sonner";
 
 interface FavoriteCityTabletProps {
   id: string;
@@ -55,7 +56,16 @@ function FavoriteCityTablet({
       tabIndex={0}
       className="relative flex min-w-[250px] cursor-pointer items-center gap-3 rounded-lg border bg-card p-4 pr-8 shadow-sm transition-all hover: shadow-md"
     >
-      <Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute right-1 top-1 h-6 w-6 rounded-full p-0 hover:text-destructive-foreground group-hover:opacity-100"
+        onClick={(e) => {
+          e.stopPropagation();
+          onRemove(id);
+          toast.error(`Removed ${name} from Favorites`);
+        }}
+      >
         <X className="h-4 w-4" />
       </Button>
     </div>
