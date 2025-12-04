@@ -13,7 +13,7 @@ import {
   useWeatherQuery,
 } from "@/hooks/use-weather";
 import { AlertTriangle, MapPin, RefreshCw } from "lucide-react";
-import React from "react";
+
 
 const WeatherDashboard = () => {
   const {
